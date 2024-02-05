@@ -99,7 +99,7 @@ class DetailsPage extends StatelessWidget {
                           color: Colors.green,
                           padding: const EdgeInsets.all(14),
                           child: const Text("okay"),
-                        ),git
+                        ),
                       ),
                     ],
                   ),
