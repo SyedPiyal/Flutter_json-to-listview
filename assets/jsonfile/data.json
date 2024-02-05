@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "title": "Robin Hostel For Males",
+    "address": "3rd Street Al",
+    "ref": "Non Refundable",
+    "price": "BDT 6,144",
+    "rating": 3.5,
+    "image": "assets/images/bed.jpg",
+    "location": "assets/images/location.png"
+  },
+  {
+    "id": 1,
+    "title": "Robin Hostel For ",
+    "address": "3rd  Al",
+    "ref": "Refundable",
+    "price": "BDT 2,144",
+    "rating": 2.5,
+    "image": "assets/images/bed1.jpg",
+    "location": "assets/images/location.png"
+  },
+  {
+    "id": 2,
+    "title": "Heartless Hostel",
+    "address": "3rd Street ",
+    "ref": "Non Refundable",
+    "price": "BDT 4,144",
+    "rating": 1.5,
+    "image": "assets/images/bed2.jpg",
+    "location": "assets/images/location.png"
+  },
+  {
+    "id": 3,
+    "title": "Route Beach Hostel",
+    "address": "3rd Street Al",
+    "ref": "Refundable",
+    "price": "BDT 6,000",
+    "rating": 3.0,
+    "image": "assets/images/bed3.jpg",
+    "location": "assets/images/location.png"
+  },
+  {
+    "id": 4,
+    "title": "Goodluck Hotel",
+    "address": " Street Al",
+    "ref": "Non Refundable",
+    "price": "BDT 5822",
+    "rating": 4.5,
+    "image": "assets/images/bed4.jpg",
+    "location": "assets/images/location.png"
+  },
+  {
+    "id": 5,
+    "title": "Ar Karnak Hotel For Males",
+    "address": "3rd Street Al",
+    "ref": "Refundable",
+    "price": "BDT 6,104",
+    "rating": 2.5,
+    "image": "assets/images/bed5.jpg",
+    "location": "assets/images/location.png"
+  }
+]
