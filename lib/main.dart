@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:buytickets/model/DataModel.dart';
+import 'package:buytickets/theme/CustomThem.dart';
+import 'package:buytickets/ui/DetailsPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'dart:convert';
@@ -19,11 +21,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      theme: ThemeData(
-        primaryColor: Colors.blue,
-        //colorScheme: ColorScheme.fromSeed(seedColor: Color(0xFF880800),primary: Color(0xFF880800)),
-        //useMaterial3: true,
-      ),
+      theme: themeData,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -74,7 +72,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         leading: const Icon(Icons.arrow_back),
         //Image.asset("assets/images/back.jpg"),
-        backgroundColor: Colors.blue,
+        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
         //Theme.of(context).colorScheme.inversePrimary,
         title: const Column(
           children: [
@@ -113,24 +111,19 @@ class _MyHomePageState extends State<MyHomePage> {
               child: TextField(
                 onChanged: _handleSearch,
                 decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    hintText: 'Search by Hotel name',
-                    filled: true,
-                    fillColor: const Color(0xFFf3f3f2),
-                    enabledBorder: OutlineInputBorder(
-                        borderSide: const BorderSide(
-                            color: Color(0xFFf3f3f2), width: 0),
-                        borderRadius: BorderRadius.circular(20)),
-                    //labelText: "01266",
-                    /*border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: const BorderSide(color: Color(0xFFf3f3f2)),
-                    ),*/
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: 'Search by Hotel name',
+                  filled: true,
+                  fillColor: const Color(0xFFf3f3f2),
+                  enabledBorder: OutlineInputBorder(
+                      borderSide: const BorderSide(
+                          color: Color(0xFFf3f3f2), width: 0),
+                      borderRadius: BorderRadius.circular(20)),
                   focusedBorder:  OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
                     borderSide: const BorderSide(color: Color(0xFFf3f3f2)),
                   ),
-                  contentPadding: const EdgeInsets.symmetric(vertical: 6),
+                  contentPadding: const EdgeInsets.symmetric(vertical: 13),
                 ),
                 keyboardType: TextInputType.text,
               ),
@@ -143,97 +136,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 alignment: Alignment.centerLeft,
                 child:
                 Text('${_results.length} ${_results.length == 1 ? 'Hotel' : 'Hotels'} Found',
-                    style: const TextStyle(color: Colors.black45,fontWeight: FontWeight.bold)),
+                    style: Theme.of(context).textTheme.headline1),
               ),
             ),
           ),
-          /*Expanded(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Container(
-                height: 550,
-                child: FutureBuilder(
-                  future: ReadJsonData(),
-                  builder: (context,data){
-                    if(data.hasError){
-                      return Center(child: Text("${data.error}"));
-                    }
-                    else if(data.hasData){
-                      var _data = data.data as List<DataModel>;
-                      return ListView.builder(
-                        itemCount: _results.length,
-                        itemBuilder: (context, index) {
-                          final data = _results[index];
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
-                            children: [
-                              Container(
-                                height: 160,
-                                child: Image.asset(
-                                  _data[index].image as String,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(vertical: 8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(_data[index].title as String,),
-                                    RatingBar.builder(
-                                      ignoreGestures: true,
-                                      initialRating: _data[index].rating!!,
-                                      minRating: 1,
-                                      direction: Axis.horizontal,
-                                      allowHalfRating: true,
-                                      itemCount: 5,
-                                      itemSize: 20,
-                                      itemPadding:
-                                      const EdgeInsets.symmetric(horizontal: 2.0),
-                                      itemBuilder: (context, _) => const Icon(
-                                        Icons.star,
-                                        color: Colors.amber,
-                                      ),
-                                      onRatingUpdate: (rating) {
-                                        // Handle rating update if needed
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    _data[index].location as String,
-                                    width: 20,
-                                    height: 20,
-                                  ),
-                                  const SizedBox(width: 8),
-                                  Text(_data[index].address as String,),
-                                ],
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(_data[index].ref as String,),
-                                  Text(_data[index].price as String,),
-                                ],
-                              ),
-                              const Divider(), // Optional: Add a divider between items
-                            ],
-                          );
-                        },
-                      );
-                    }
-            
-                    // By default show a loading spinner.
-                    return const CircularProgressIndicator();
-            
-                  },
-                ),
-              ),
-            ),
-          ),*/
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -243,63 +149,74 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: _results.length,
                   itemBuilder: (context, index) {
                     final data = _results[index];
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        Container(
-                          height: 160,
-                          child: Image.asset(
-                            data.image!,
-                            fit: BoxFit.cover,
+                    return GestureDetector(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          Container(
+                            height: 160,
+                            child: Image.asset(
+                              data.image!,
+                              fit: BoxFit.cover,
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(data.title!),
-                              RatingBar.builder(
-                                ignoreGestures: true,
-                                initialRating: data.rating!,
-                                minRating: 1,
-                                direction: Axis.horizontal,
-                                allowHalfRating: true,
-                                itemCount: 5,
-                                itemSize: 20,
-                                itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 2.0),
-                                itemBuilder: (context, _) => const Icon(
-                                  Icons.star,
-                                  color: Colors.amber,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(data.title!,
+                                    style: Theme.of(context).textTheme.headline2),
+                                RatingBar.builder(
+                                  ignoreGestures: true,
+                                  initialRating: data.rating!,
+                                  minRating: 1,
+                                  direction: Axis.horizontal,
+                                  allowHalfRating: true,
+                                  itemCount: 5,
+                                  itemSize: 20,
+                                  itemPadding:
+                                  const EdgeInsets.symmetric(horizontal: 2.0),
+                                  itemBuilder: (context, _) => const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                  ),
+                                  onRatingUpdate: (rating) {
+                                    // Handle rating update if needed
+                                  },
                                 ),
-                                onRatingUpdate: (rating) {
-                                  // Handle rating update if needed
-                                },
+                              ],
+                            ),
+                          ),
+                          Row(
+                            children: [
+                              Image.asset(
+                                data.location!,
+                                width: 20,
+                                height: 20,
                               ),
+                              const SizedBox(width: 8),
+                              Text(data.address!),
                             ],
                           ),
-                        ),
-                        Row(
-                          children: [
-                            Image.asset(
-                              data.location!,
-                              width: 20,
-                              height: 20,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(data.address!),
-                          ],
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(data.ref!),
-                            Text(data.price!),
-                          ],
-                        ),
-                        const Divider(), // Optional: Add a divider between items
-                      ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(data.ref!),
+                              Text(data.price!,style: Theme.of(context).textTheme.bodyText1),
+                            ],
+                          ),
+                          const Divider(), // Optional: Add a divider between items
+                        ],
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => DetailsPage(dataModel: _results[index]),
+                          ),
+                        );
+                      },
                     );
                   },
                 ),
