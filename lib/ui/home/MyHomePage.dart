@@ -49,12 +49,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
-        //Image.asset("assets/images/back.jpg"),
+        leading: const Icon(Icons.arrow_back,
+        color: Colors.white),
         backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
-        //Theme.of(context).colorScheme.inversePrimary,
         title: const Column(
           children: [
             Align(
@@ -63,19 +63,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     style: TextStyle(fontSize: 12.5, color: Colors.white70))),
             Row(
               children: [
-                Text("01 Nov,24",
+                Text("01 Nov,24 -",
                     style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text("-",
+                Text(" 01 Dec,24 |",
                     style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text("01 Dec,24",
+                Text(" 30 Night",
                     style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text(" | ",
-                    style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text("30 Night",
-                    style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text(" | ",
-                    style: TextStyle(fontSize: 12.5, color: Colors.white70)),
-                Text("1 Room,1 Adult",
+                Text(" | 1 Room,1 Adult",
                     style: TextStyle(fontSize: 12.5, color: Colors.white70)),
               ],
             ),
@@ -160,7 +154,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   const EdgeInsets.symmetric(horizontal: 2.0),
                                   itemBuilder: (context, _) => const Icon(
                                     Icons.star,
-                                    color: Colors.amber,
+                                    color: Colors.blue,
                                   ),
                                   onRatingUpdate: (rating) {
                                     // Handle rating update if needed
@@ -177,13 +171,13 @@ class _MyHomePageState extends State<MyHomePage> {
                                 height: 20,
                               ),
                               const SizedBox(width: 8),
-                              Text(data.address!),
+                              Text(data.address!,style: TextStyle(color: Colors.black,fontWeight: FontWeight.normal),),
                             ],
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(data.ref!),
+                              Text(data.ref!,style: Theme.of(context).textTheme.bodyText2),
                               Text(data.price!,style: Theme.of(context).textTheme.bodyText1),
                             ],
                           ),

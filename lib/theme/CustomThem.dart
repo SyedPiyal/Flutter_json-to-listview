@@ -12,10 +12,12 @@ final ThemeData themeData = ThemeData(
   buttonTheme: const ButtonThemeData(
     buttonColor: Colors.blue
   ),
-  textTheme: const TextTheme(
+  textTheme:  TextTheme(
     headline1: TextStyle(fontSize: 15,color: Colors.black45,fontWeight: FontWeight.bold),
-    headline2: TextStyle(fontSize: 15,color: Colors.black,fontWeight: FontWeight.bold),
-    bodyText1: TextStyle(fontSize: 20,color: Colors.blue)
+    headline2: TextStyle(fontSize: 15,color: Colors.blueAccent,fontWeight: FontWeight.bold),
+    bodyText1: TextStyle(fontSize: 15,color: Colors.red),
+    bodyText2: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold),
+
   ),
 
 );

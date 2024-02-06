@@ -1,6 +1,7 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CustomDailog extends StatefulWidget {
   const CustomDailog({super.key, required this.title, required this.value, required this.dropValue});
@@ -39,58 +40,98 @@ class _CustomDailogState extends State<CustomDailog>{
     return AlertDialog(
       title:  const Text("Are You Happy With the Design ?",style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
       content: Container(
-        height: 200,
+        height: 150,
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            ListTile(
-              title: const Text('Yes'),
-              leading: Radio(
-                value: 1,
-                groupValue: selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOption = value!;
-                  });
-                },
-              ),
-            ),
-            ListTile(
-              title: const Text('No'),
-              leading: Radio(
-                value: 2,
-                groupValue: selectedOption,
-                onChanged: (value) {
-                  setState(() {
-                    selectedOption = value!;
-                  });
-                },
-              ),
-            ),
-
-            // Step 2.
-            DropdownButton<String>(
-              // Step 3.
-              value: dropdownValue,
-              // Step 4.
-              items: <String>['Good', 'Not Good', 'Bad', 'Best']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(
-                    value,
-                    style: const TextStyle(fontSize: 30),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: ListTile(
+                    horizontalTitleGap: 0.5,
+                    dense:true,
+                    title: const Text('Yes',style: const TextStyle(fontSize: 16)),
+                    leading: Radio(
+                      activeColor: Colors.blue,
+                      value: 1,
+                      groupValue: selectedOption,
+                      onChanged: (value) {
+                        setState(() {
+                          selectedOption = value!;
+                        });
+                      },
+                    ),
                   ),
-                );
-              }).toList(),
-              // Step 5.
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue!;
-                });
-              },
+                ),
+                Expanded(child:
+                ListTile(
+                  horizontalTitleGap: 0.5,
+                  dense:true,
+                  title: const Text('No',style: const TextStyle(fontSize: 16)),
+                  leading: Radio(
+                    activeColor: Colors.blue,
+                    value: 2,
+                    groupValue: selectedOption,
+                    onChanged: (value) {
+                      setState(() {
+                        selectedOption = value!;
+                      });
+                    },
+                  ),
+                ),),
+
+              ],
             ),
 
+            // drop down menu
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Text("How Much ?",style: TextStyle(color: Colors.black)),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  items: <String>['Good', 'Not Good', 'Bad', 'Best']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(
+                        value,
+                        style: const TextStyle(fontSize: 15),
+                      ),
+                    );
+                  }).toList(),
+                  // Step 5.
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      dropdownValue = newValue!;
+                    });
+                  },
+                ),
+              ],
+            ),
+
+            //rating bar for review
+            Padding(
+              padding: const EdgeInsets.only(top: 20),
+              child: RatingBar.builder(
+                ignoreGestures: false,
+                initialRating: 2.5,
+                minRating: 1,
+                direction: Axis.horizontal,
+                allowHalfRating: true,
+                itemCount: 5,
+                itemSize: 25,
+                itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
+                itemBuilder: (context, _) => const Icon(
+                  Icons.star,
+                  color: Colors.blue,
+                ),
+                onRatingUpdate: (rating) {
+                  // Handle rating update if needed
+                },
+              ),
+            )
           ],
         ),
       ),
@@ -100,9 +141,13 @@ class _CustomDailogState extends State<CustomDailog>{
             Navigator.of(context).pop((selectedOption,dropdownValue));
           },
           child: Container(
-            color: Colors.deepOrangeAccent,
+            width: 200,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(14),
+              color: Colors.blue,
+            ),
             padding: const EdgeInsets.all(14),
-            child: const Text("okay"),
+            child: const Text("Okay",style: TextStyle(color: Colors.black87),textAlign: TextAlign.center),
           ),
         ),
       ],

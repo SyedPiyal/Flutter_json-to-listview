@@ -1,4 +1,5 @@
 import 'package:buytickets/model/DataModel.dart';
+import 'package:buytickets/theme/CustomThem.dart';
 import 'package:buytickets/widget/CustomDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -33,13 +34,45 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
           Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(
+              widget.dataModel.title!,
+              style: Theme.of(context).textTheme.headline2,
+            ),
+          ),
+          Padding(
             padding: const EdgeInsets.all(8),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  widget.dataModel.title!,
-                  style: Theme.of(context).textTheme.headline2,
+                //button for review
+                ElevatedButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (ctx) => CustomDailog(title: "Book",dropValue: dropdownValue,value: selectedOption),
+                    ).then((value) {
+                      final data = value as (int,String);
+                      setState(() {
+                        selectedOption = data.$1;
+                        dropdownValue = data.$2;
+                      });
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            10,
+                          )),
+                      minimumSize: const Size(50, 40),
+                      foregroundColor: Colors.white,
+                      // Text Color (Foreground color)
+                      textStyle: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                      backgroundColor: Colors.blue),
+                  child: const Text("Review", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
                 ),
                 RatingBar.builder(
                   ignoreGestures: true,
@@ -52,11 +85,15 @@ class _DetailsPageState extends State<DetailsPage> {
                   itemPadding: const EdgeInsets.symmetric(horizontal: 2.0),
                   itemBuilder: (context, _) => const Icon(
                     Icons.star,
-                    color: Colors.amber,
+                    color: Colors.blue,
                   ),
                   onRatingUpdate: (rating) {
                     // Handle rating update if needed
                   },
+                ),
+                Text(
+                  dropdownValue,
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ],
             ),
@@ -80,29 +117,23 @@ class _DetailsPageState extends State<DetailsPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
+                //text for Refound
                 Text(widget.dataModel.ref!),
+
+                //text for price
                 Text(
                   widget.dataModel.price!,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: themeData.textTheme.bodyText1,
                 ),
               ],
             ),
           ),
-          //button for booking and alert dialog
+          //button for booking and show loader
           Padding(
             padding: const EdgeInsets.only(left: 40, right: 40, top: 50),
             child: ElevatedButton(
               onPressed: () {
-                showDialog(
-                  context: context,
-                  builder: (ctx) => CustomDailog(title: "Book",dropValue: dropdownValue,value: selectedOption),
-                ).then((value) {
-                  final data = value as (int,String);
-                  setState(() {
-                    selectedOption = data.$1;
-                    dropdownValue = data.$2;
-                  });
-                });
+
               },
               style: ElevatedButton.styleFrom(
                   shape: RoundedRectangleBorder(
@@ -116,17 +147,11 @@ class _DetailsPageState extends State<DetailsPage> {
                     color: Colors.white,
                     fontSize: 20,
                   ),
-                  backgroundColor: Colors.deepOrangeAccent),
-              child: const Text("Book", style: TextStyle(fontSize: 15)),
+                  backgroundColor: Colors.blue),
+              child: const Text("Book", style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold)),
             ),
           ),
-          Padding(
-              padding: const EdgeInsets.only(left: 150, top: 50),
-              child: Text(
-                dropdownValue,
-                style:
-                    const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
-              )),
+
         ],
       ),
     );
