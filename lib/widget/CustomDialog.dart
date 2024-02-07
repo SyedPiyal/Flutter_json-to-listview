@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class CustomDailog extends StatefulWidget {
-  const CustomDailog({super.key, required this.title, required this.value, required this.dropValue});
+  const CustomDailog({super.key, required this.title, required this.value, required this.dropValue, required this.ratingValue});
   @override
   State<CustomDailog> createState() => _CustomDailogState();
   final String title;
 
-  final int value;
+  final String value;
   final String dropValue;
+
+  final double ratingValue;
+
 
 
 }
@@ -27,11 +30,14 @@ class _CustomDailogState extends State<CustomDailog>{
   void _loadData() async {
     selectedOption = widget.value;
     dropdownValue = widget.dropValue;
+    ratingValue =widget.ratingValue;
   }
 
-  int selectedOption = 1;
+  String selectedOption = "Yes";
 
   String dropdownValue = 'Good';
+
+  double ratingValue = 1.5;
 
 
 
@@ -44,6 +50,7 @@ class _CustomDailogState extends State<CustomDailog>{
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
+            //radio button
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
@@ -54,7 +61,7 @@ class _CustomDailogState extends State<CustomDailog>{
                     title: const Text('Yes',style: const TextStyle(fontSize: 16)),
                     leading: Radio(
                       activeColor: Colors.blue,
-                      value: 1,
+                      value: "Yes",
                       groupValue: selectedOption,
                       onChanged: (value) {
                         setState(() {
@@ -71,7 +78,7 @@ class _CustomDailogState extends State<CustomDailog>{
                   title: const Text('No',style: const TextStyle(fontSize: 16)),
                   leading: Radio(
                     activeColor: Colors.blue,
-                    value: 2,
+                    value: "No",
                     groupValue: selectedOption,
                     onChanged: (value) {
                       setState(() {
@@ -116,7 +123,7 @@ class _CustomDailogState extends State<CustomDailog>{
               padding: const EdgeInsets.only(top: 20),
               child: RatingBar.builder(
                 ignoreGestures: false,
-                initialRating: 2.5,
+                initialRating: ratingValue,
                 minRating: 1,
                 direction: Axis.horizontal,
                 allowHalfRating: true,
@@ -129,6 +136,7 @@ class _CustomDailogState extends State<CustomDailog>{
                 ),
                 onRatingUpdate: (rating) {
                   // Handle rating update if needed
+                  ratingValue = rating!;
                 },
               ),
             )
@@ -138,7 +146,7 @@ class _CustomDailogState extends State<CustomDailog>{
       actions: <Widget>[
         TextButton(
           onPressed: () {
-            Navigator.of(context).pop((selectedOption,dropdownValue));
+            Navigator.of(context).pop((selectedOption,dropdownValue,ratingValue));
           },
           child: Container(
             width: 200,
