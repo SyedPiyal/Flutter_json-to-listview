@@ -1,17 +1,13 @@
-import 'dart:typed_data';
-
 import 'package:buytickets/model/DataModel.dart';
 import 'package:buytickets/theme/CustomThem.dart';
 import 'package:buytickets/widget/CustomDialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 class DetailsPage extends StatefulWidget {
-  //const DetailsPage({super.key});
 
   const DetailsPage({super.key, required this.dataModel});
 
@@ -188,7 +184,6 @@ class _DetailsPageState extends State<DetailsPage> {
             ),
           ),
 
-          //button for audio player
 
         ],
       ),

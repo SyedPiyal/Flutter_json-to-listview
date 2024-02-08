@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 final ThemeData themeData = ThemeData(
@@ -15,7 +14,7 @@ final ThemeData themeData = ThemeData(
   textTheme:  TextTheme(
     headline1: TextStyle(fontSize: 15,color: Colors.black45,fontWeight: FontWeight.bold),
     headline2: TextStyle(fontSize: 15,color: Colors.blueAccent,fontWeight: FontWeight.bold),
-    bodyText1: TextStyle(fontSize: 15,color: Colors.red),
+    bodyText1: TextStyle(fontSize: 15,color: Colors.black),
     bodyText2: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold),
 
   ),
